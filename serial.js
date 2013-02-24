@@ -20,23 +20,31 @@ serial.init = function() {
 	});
 
 	myPort.on('data', function(data) {
-		console.log(data);
+		var prefix, datype, davalue;
+		
+		// parse the data
+		prefix = data.substring(0, 1);
+		davalue = data.substring(1);
 
-		// // parse the data
-		// index = data.indexOf('B');
-		// if(index === 0) {
-		// 	davlue = data.substring(1);
+		if(prefix === 'B') {
+			datype = 0;
+			console.log('pulse: ' + davalue);
+		} else if(prefix === 'T') {
+			datype = 1;
+			davalue = Number(davalue) + 10
+			console.log('temperature: ' + davalue);
+		}
 
-		// 	// save data to db
-		// 	point.uid = user._id;
-		// 	point.type = 0;
-		// 	point.value = davalue;
-		// 	point.timestamp = new Date;
-		// 	point.save(function(err, saved) {
-		//       if(err) console.log('err saving data point: ' + err);
-		//       else console.log('saved data point: ' + saved);
-		// 	});
-		// }
+		// save data to db
+		var point = new Point;
+		point.uid = '5129360e4fa8c88505000001';
+		point.type = datype;
+		point.value = davalue;
+		point.timestamp = new Date;
+		point.save(function(err, saved) {
+	      if(err) console.log('err saving data point: ' + err);
+	      //else console.log('saved data point: ' + saved);
+		});
 	});
 };
 
