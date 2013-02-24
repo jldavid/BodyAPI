@@ -11,8 +11,8 @@ var myPort;
 serial.init = function() {
 
 	// initialize serial port read
-	//var myPort = new SerialPort("/dev/tty.usbmodemfa131", { 
-	myPort = new SerialPort("/dev/cu.usbserial-A900XVAA", {
+	myPort = new SerialPort("/dev/tty.usbmodemfa131", { 
+	//myPort = new SerialPort("/dev/cu.usbserial-A900XVAA", {
 		// look for return and newline at the end of each data packet:
 		baudrate: 115200,
 		//baudrate: 9600,
@@ -22,28 +22,28 @@ serial.init = function() {
 	myPort.on('data', function(data) {
 		console.log(data);
 
-		// parse the data
-		index = data.indexOf('B');
-		if(index === 0) {
-			davlue = data.substring(1);
+		// // parse the data
+		// index = data.indexOf('B');
+		// if(index === 0) {
+		// 	davlue = data.substring(1);
 
-			// save data to db
-			point.uid = user._id;
-			point.type = 0;
-			point.value = davalue;
-			point.timestamp = new Date;
-			point.save(function(err, saved) {
-		      if(err) console.log('err saving data point: ' + err);
-		      else console.log('saved data point: ' + saved);
-			});
-		}
+		// 	// save data to db
+		// 	point.uid = user._id;
+		// 	point.type = 0;
+		// 	point.value = davalue;
+		// 	point.timestamp = new Date;
+		// 	point.save(function(err, saved) {
+		//       if(err) console.log('err saving data point: ' + err);
+		//       else console.log('saved data point: ' + saved);
+		// 	});
+		// }
 	});
 };
 
 
 // public methods
 serial.buzz = function() {
-	console.log('buzing...');
+	console.log('sending buzz');
 	myPort.write(1);
 };
 

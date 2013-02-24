@@ -16,7 +16,6 @@ exports.getTemperature = function(req, res) {
 
 
 exports.buzz = function(req, res) {
-
 	serial.buzz();
-
+	res.send('ok');
 };
