@@ -30,6 +30,8 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/buzz', routes.buzz);
+app.get('/pulse', routes.getPulse);
+app.get('/temperature', routes.getTemperature);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
